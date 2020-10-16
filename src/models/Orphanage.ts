@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm'; 
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn} from 'typeorm'; 
+import Image from './Image';
 
 //com o Decorator o Typeorm vai entender que essa classe ta associada a tabela Orphanage
 @Entity('orphanages')
@@ -26,4 +27,11 @@ export default class Orphanage {
     
     @Column()
     open_on_weekends: boolean;
+
+    @OneToMany(() => Image, image => image.orphanage, {
+        //Ao cadastrar  ou atualizar um orfanato, ele vai automaticamente cadastrar ou atualizar as imagens refs ao orf
+        cascade: ['insert', 'update']
+    })
+    @JoinColumn({ name: 'orphanage_id' })
+    images: Image[];
 }
