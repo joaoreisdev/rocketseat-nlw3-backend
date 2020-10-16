@@ -3,7 +3,9 @@ import OrphanagesController from './controllers/OrphanagesController';
 
 const routes = Router();
 
+//Métodos comuns: Index, show, create, update, delete
 //Criando rota para criação de orfanatos
+routes.get('/orphanages', OrphanagesController.index);
 routes.post('/orphanages', OrphanagesController.create);
 
 export default routes;
