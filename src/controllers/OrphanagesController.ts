@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm';
 import Orphanage from '../models/Orphanage';
 
 export default {
+    //Lista orfanatos
     async index(request: Request, response: Response) {
       
         const orphanagesRepository = getRepository(Orphanage);
@@ -14,8 +15,21 @@ export default {
 
     },
 
+    async show(request: Request, response: Response) {
+        
+        const { id } = request.params;
+
+        const orphanagesRepository = getRepository(Orphanage);
+        
+        const orphanage = await orphanagesRepository.findOneOrFail(id);
+
+        return response.json(orphanage);
+
+    },
+
+    //Cria um orfanato
     async create(request: Request, response: Response){
-         //Armazenando em variáveis as infos do json que está sendo enviado
+    //Armazenando em variáveis as infos do json que está sendo enviado
     const {
         name,
         latitude,
